@@ -16,8 +16,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -38,7 +36,7 @@ public class ExcelReadWrite {
     static String sheetName ;
     static String[] testId;
     final static String  testIdColumnName="TestId";
-    static HashMap<String, LinkedHashMap<Integer, List>> outerMap;
+    static HashMap<String, LinkedHashMap<Integer, List<String>>> outerMap;
 	static ArrayList<String> tags= new ArrayList<String>();
 	static String cellValue;
 	 public static void tagNames(Scenario scenario){
@@ -48,38 +46,36 @@ public class ExcelReadWrite {
 		 log.info("Tags used are: "+tags);
 	}
 
-	public static String getColumnData(String data) throws Exception {
-		loadExcelFileData(path);
+	public static void getTestId() throws Exception {
 		
+		tagNames(scenario);
 		 testId= new String[20];
-		for(String tag: tags){
-			if(tag.contains("Test_Id"))
+			tags.(testIdColumnName))
 			{
 				for (int i=0; i<scenario.getSourceTagNames().size();i++)
 				{	
-				testId[i]=tag.substring(7);
+				testId[i]=tags.indexOf(@);
+				
+				
 			}
 			
 			}
 			else
 			{
-				throw new Exception("Test_Id is missng! Please add Test_ID tag in feature file:"); 
+				throw new Exception("TestId is missing! Please add Test_ID tag in feature file:"); 
 			}
 		}
-//		goToColumn(testIdColumnName);
-//		findrow(testId);
-//		goToColumn(testIdColumnName);
-		return data;
+
 		
 	}
 	
-	public static HashMap<String, LinkedHashMap<Integer, List>> loadExcelFileData(String path)
+	public static HashMap<String, LinkedHashMap<Integer, List<String>>> loadExcelFileData(String path)
     {
         Integer values;
         // Used the LinkedHashMap and LikedList to maintain the order
-        outerMap = new LinkedHashMap<String, LinkedHashMap<Integer, List>>();
+        outerMap = new LinkedHashMap<String, LinkedHashMap<Integer, List<String>>>();
 
-        LinkedHashMap<Integer, List> hashMap = new LinkedHashMap<Integer, List>();
+        LinkedHashMap<Integer, List<String>> hashMap = new LinkedHashMap<Integer, List<String>>();
         
         // Create an ArrayList to store the data read from excel sheet.
         // List sheetData = new ArrayList();
@@ -102,7 +98,7 @@ public class ExcelReadWrite {
                      row = rows.next();
                     Iterator<Cell> cells = row.iterator();
 
-                    data = new LinkedList();
+                    data = new LinkedList<String>();
                     
                     while (cells.hasNext())
                     {   
@@ -110,16 +106,16 @@ public class ExcelReadWrite {
                          cell =  cells.next();
                         switch(cell.getCellType()) {
                         case Cell.CELL_TYPE_BOOLEAN: 
-                        cell.getBooleanCellValue(); 
-                        data.add(cell); 
+                        boolean b=cell.getBooleanCellValue(); 
+                        data.add(b); 
                         break; 
                         case Cell.CELL_TYPE_NUMERIC: 
                        values =(int)cell.getNumericCellValue(); 
                        data.add(values);
                          break; 
                         case Cell.CELL_TYPE_STRING: 
-                        cell.getStringCellValue(); 
-                        data.add(cell); 
+                        String s=cell.getStringCellValue(); 
+                        data.add(s); 
                         break; 
                         
                         }
@@ -132,7 +128,7 @@ public class ExcelReadWrite {
                     // sheetData.add(data);
                 }
                 outerMap.put(sheetName, hashMap);
-                hashMap = new LinkedHashMap<Integer, List>();
+                hashMap = new LinkedHashMap<Integer, List<String>>();
             }
         }
         catch (IOException e)
@@ -161,9 +157,10 @@ public class ExcelReadWrite {
 
 	public static String getdata(String url) throws Exception {
 		// TODO Auto-generated method stub
+		ExcelReadWrite.getTestId();
 		int columnOfTestId,columnofUrl;
 		
-		LinkedHashMap<Integer, List> hashMap = new LinkedHashMap<Integer, List>();
+		LinkedHashMap<Integer, List<String>> hashMap = new LinkedHashMap<Integer, List<String>>();
 		if(outerMap.isEmpty()){
 			throw new Exception("Excel file have no data");
 		}
@@ -172,13 +169,17 @@ public class ExcelReadWrite {
             {
 				XSSFSheet sheet = workBook.getSheetAt(i);
 			hashMap=outerMap.get(sheet.getSheetName());
+			List l=hashMap.get(0);
+		    Object s=l.get(1).getClass().getName();
+						
 			columnOfTestId=hashMap.get(0).indexOf(testIdColumnName);
 			columnofUrl=hashMap.get(0).indexOf(url);
+			int p=hashMap.keySet().size();
 			for(int j=0; j<hashMap.keySet().size();j++)
 			{
 				if(j==0)
-					continue;
-				if(hashMap.get(j).get(columnOfTestId).equals(testId[j]))
+				     continue;
+				if(hashMap.get(j).get(columnOfTestId).equals(testId[(j-1)]))
 				{
 					cellValue=(String)hashMap.get(j).get(columnofUrl);
 				

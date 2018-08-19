@@ -15,21 +15,23 @@ public class DataSourceDecider {
 
 	public static String dataFinder(String url) throws Exception {
 		
+		
 		if(url==null)
 		{
 			return null;
 			}
-		if(!(url.startsWith("#") && url.startsWith("$")) )
+		String s=url.substring(1);
+		if(!(url.startsWith("#") || url.startsWith("$")) )
 		{
 		return urlChecker(url); //check url is valid else throws an exception
 		}
 		else if(url.startsWith("#")){
 			
-			obtainedUrl= ExcelReadWrite.getdata(url.substring(1));
+			obtainedUrl= ExcelReadWrite.getdata(s);
 			return urlChecker(obtainedUrl);
 			} 
 		else if(url.startsWith("$")){
-			obtainedUrl=DbReadWrite.getdata(url.substring(1));
+			obtainedUrl=DbReadWrite.getdata(s);
 			return urlChecker(obtainedUrl);
 		}
 		throw new UnsupportedOperationException("This url: "+"\""+obtainedUrl+"\""+ " is in invalid format");
