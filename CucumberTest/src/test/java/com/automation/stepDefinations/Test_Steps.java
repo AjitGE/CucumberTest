@@ -18,10 +18,10 @@ public class Test_Steps {
 	public static WebDriver driver;
 	@Given("^user launches \"([^\"]*)\" browser with url \"([^\"]*)\"$")
 	public void user_launches_browser_with_url(String browserName, String url) throws Throwable {
-	    driver=WebDriverBinaries.browser(browserName);
-       String ObatainedUrl=DataSourceDecider.getData(url);
+	    
+       String ObatainedUrl=DataSourceDecider.dataFinder(url);
+        driver=WebDriverBinaries.browser(browserName);
         driver.get(ObatainedUrl);
-		
 	}
 	
 	@Given("^user loads the data from \"([^\"]*)\" located at \"([^\"]*)\"$")

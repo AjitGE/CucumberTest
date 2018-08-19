@@ -36,7 +36,11 @@ public class ExcelReadWrite {
     static String cellData;
     static List data;
     static String sheetName ;
+    static String[] testId;
+    final static String  testIdColumnName="TestId";
+    static HashMap<String, LinkedHashMap<Integer, List>> outerMap;
 	static ArrayList<String> tags= new ArrayList<String>();
+	static String cellValue;
 	 public static void tagNames(Scenario scenario){
 		 ExcelReadWrite.scenario=scenario;
 		 log.info("total number of tags used in file are: "+scenario.getSourceTagNames().size());
@@ -46,8 +50,8 @@ public class ExcelReadWrite {
 
 	public static String getColumnData(String data) throws Exception {
 		loadExcelFileData(path);
-		//final String  testIdColumnName="Test_Id";
-		String[] testId= new String[20];
+		
+		 testId= new String[20];
 		for(String tag: tags){
 			if(tag.contains("Test_Id"))
 			{
@@ -65,52 +69,15 @@ public class ExcelReadWrite {
 //		goToColumn(testIdColumnName);
 //		findrow(testId);
 //		goToColumn(testIdColumnName);
-		
-return getColumnData(data);
-		
-	}/*
-	private static void goToColumn(String testIdColumnName) {
-		//row=new  
-		
+		return data;
 		
 	}
-
-	private static void findrow(String[] testId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
-	public static  XSSFWorkbook getWorkbook(String path) throws FileNotFoundException {
-		// TODO Auto-generated method stub
-		
-		ExcelReadWrite.path=path;
-		File file = new File(path);
-	      
-		try {
-			fIP = new FileInputStream(file);
-			workbook = new XSSFWorkbook(fIP);
-			return workbook;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	     	      
-	      if(file.isFile() && file.exists()) {
-	         log.info("opening file at: "+path);
-	      } else {
-	         throw new FileNotFoundException("At given "+path+ "file is missing!!!");
-	      }
-		return null;
-		
-	   }*/
 	
 	public static HashMap<String, LinkedHashMap<Integer, List>> loadExcelFileData(String path)
     {
-
+        Integer values;
         // Used the LinkedHashMap and LikedList to maintain the order
-        HashMap<String, LinkedHashMap<Integer, List>> outerMap = new LinkedHashMap<String, LinkedHashMap<Integer, List>>();
+        outerMap = new LinkedHashMap<String, LinkedHashMap<Integer, List>>();
 
         LinkedHashMap<Integer, List> hashMap = new LinkedHashMap<Integer, List>();
         
@@ -139,20 +106,25 @@ return getColumnData(data);
                     
                     while (cells.hasNext())
                     {   
+                    	
                          cell =  cells.next();
                         switch(cell.getCellType()) {
                         case Cell.CELL_TYPE_BOOLEAN: 
                         cell.getBooleanCellValue(); 
+                        data.add(cell); 
                         break; 
                         case Cell.CELL_TYPE_NUMERIC: 
-                       cell.getNumericCellValue(); 
-                        break; 
+                       values =(int)cell.getNumericCellValue(); 
+                       data.add(values);
+                         break; 
                         case Cell.CELL_TYPE_STRING: 
                         cell.getStringCellValue(); 
+                        data.add(cell); 
                         break; 
                         
                         }
-                      data.add(cell);  
+                      
+                      
                     }
                     
 					hashMap.put(row.getRowNum(), data);
@@ -186,7 +158,39 @@ return getColumnData(data);
         return outerMap;
 
     }
+
+	public static String getdata(String url) throws Exception {
+		// TODO Auto-generated method stub
+		int columnOfTestId,columnofUrl;
+		
+		LinkedHashMap<Integer, List> hashMap = new LinkedHashMap<Integer, List>();
+		if(outerMap.isEmpty()){
+			throw new Exception("Excel file have no data");
+		}
+		else{
+			for (int i = 0; i < workBook.getNumberOfSheets(); i++)
+            {
+				XSSFSheet sheet = workBook.getSheetAt(i);
+			hashMap=outerMap.get(sheet.getSheetName());
+			columnOfTestId=hashMap.get(0).indexOf(testIdColumnName);
+			columnofUrl=hashMap.get(0).indexOf(url);
+			for(int j=0; j<hashMap.keySet().size();j++)
+			{
+				if(j==0)
+					continue;
+				if(hashMap.get(j).get(columnOfTestId).equals(testId[j]))
+				{
+					cellValue=(String)hashMap.get(j).get(columnofUrl);
+				
+				
+				}
+			}
+		}
+		
 	}
+		return cellValue;
+	}
+}
 		
 
 	
