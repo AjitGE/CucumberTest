@@ -1,0 +1,8 @@
+Feature: Login Action
+
+  @apps
+  Scenario: Successful Login with Valid Credentials # apps.feature:3
+    Given User is on Home Page                      # Test_Steps.user_is_on_Home_Page()
+    When User Navigate to LogIn Page                # Test_Steps.user_Navigate_to_LogIn_Page()
+    And User enters UserName and Password           # Test_Steps.user_enters_UserName_and_Password()
+    Then Message displayed Login Successfully       # Test_Steps.message_displayed_Login_Successfully()

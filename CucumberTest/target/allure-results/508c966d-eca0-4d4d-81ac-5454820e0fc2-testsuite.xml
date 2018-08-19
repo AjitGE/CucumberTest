@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:test-suite start="1534599732300" stop="1534599732399" version="1.5.2" xmlns:ns2="urn:model.allure.qatools.yandex.ru">
+    <name>Login Action</name>
+    <description type="text"></description>
+    <test-cases>
+        <test-case start="1534599732367" stop="1534599732397" status="pending">
+            <name>Successful Login with Valid Credentials</name>
+            <title>Successful Login with Valid Credentials</title>
+            <description type="text"></description>
+            <failure>
+                <message>Test not implemented yet</message>
+                <stack-trace>There are no stack trace</stack-trace>
+            </failure>
+            <steps>
+                <step start="1534599732384" stop="1534599732390" status="canceled">
+                    <name>Given User is on Home Page</name>
+                    <title>Given User is on Home Page</title>
+                </step>
+                <step start="1534599732391" stop="1534599732392" status="canceled">
+                    <name>When User Navigate to LogIn Page</name>
+                    <title>When User Navigate to LogIn Page</title>
+                </step>
+                <step start="1534599732393" stop="1534599732394" status="canceled">
+                    <name>And User enters UserName and Password</name>
+                    <title>And User enters UserName and Password</title>
+                </step>
+                <step start="1534599732395" stop="1534599732396" status="canceled">
+                    <name>Then Message displayed Login Successfully</name>
+                    <title>Then Message displayed Login Successfully</title>
+                </step>
+            </steps>
+            <attachments/>
+            <labels>
+                <label name="story" value="Successful Login with Valid Credentials"/>
+                <label name="feature" value="Login Action"/>
+                <label name="host" value="Ajit-PC"/>
+                <label name="thread" value="70508@Ajit-PC.main(1)"/>
+                <label name="framework" value="CucumberJVM"/>
+            </labels>
+        </test-case>
+    </test-cases>
+    <labels>
+        <label name="feature" value="Login Action"/>
+        <label name="language" value="JAVA"/>
+    </labels>
+</ns2:test-suite>

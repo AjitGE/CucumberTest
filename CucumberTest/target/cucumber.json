@@ -1,0 +1,76 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "line": 3,
+        "name": "Successful Login with Valid Credentials",
+        "description": "",
+        "id": "login-action;successful-login-with-valid-credentials",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 14985468666,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "User is on Home Page",
+            "match": {
+              "location": "Test_Steps.user_is_on_Home_Page()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 3445682361,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "User Navigate to LogIn Page",
+            "match": {
+              "location": "Test_Steps.user_Navigate_to_LogIn_Page()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 315483682,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "User enters UserName and Password",
+            "match": {
+              "location": "Test_Steps.user_enters_UserName_and_Password()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 143375,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "Message displayed Login Successfully",
+            "match": {
+              "location": "Test_Steps.message_displayed_Login_Successfully()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "line": 2,
+            "name": "@apps"
+          }
+        ]
+      }
+    ],
+    "name": "Login Action",
+    "description": "",
+    "id": "login-action",
+    "keyword": "Feature",
+    "uri": "apps.feature"
+  }
+]

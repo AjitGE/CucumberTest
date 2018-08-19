@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:test-suite start="1534607937830" stop="1534607956690" version="1.5.2" xmlns:ns2="urn:model.allure.qatools.yandex.ru">
+    <name>Login Action</name>
+    <description type="text"></description>
+    <test-cases>
+        <test-case start="1534607937891" stop="1534607956664" status="passed">
+            <name>Successful Login with Valid Credentials</name>
+            <title>Successful Login with Valid Credentials</title>
+            <description type="text"></description>
+            <steps>
+                <step start="1534607937905" stop="1534607952895" status="passed">
+                    <name>Given User is on Home Page</name>
+                    <title>Given User is on Home Page</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start="1534607952896" stop="1534607956342" status="passed">
+                    <name>When User Navigate to LogIn Page</name>
+                    <title>When User Navigate to LogIn Page</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start="1534607956344" stop="1534607956661" status="passed">
+                    <name>And User enters UserName and Password</name>
+                    <title>And User enters UserName and Password</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start="1534607956662" stop="1534607956662" status="passed">
+                    <name>Then Message displayed Login Successfully</name>
+                    <title>Then Message displayed Login Successfully</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+            <labels>
+                <label name="story" value="Successful Login with Valid Credentials"/>
+                <label name="feature" value="Login Action"/>
+                <label name="host" value="Ajit-PC"/>
+                <label name="thread" value="90888@Ajit-PC.main(1)"/>
+                <label name="framework" value="CucumberJVM"/>
+            </labels>
+        </test-case>
+    </test-cases>
+    <labels>
+        <label name="feature" value="Login Action"/>
+        <label name="language" value="JAVA"/>
+    </labels>
+</ns2:test-suite>
