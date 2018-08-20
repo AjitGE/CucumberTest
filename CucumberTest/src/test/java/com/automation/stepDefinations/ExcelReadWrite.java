@@ -34,7 +34,7 @@ public class ExcelReadWrite {
     static String cellData;
     static List data;
     static String sheetName ;
-    static String[] testId;
+    static ArrayList<String> testIdNumber=new ArrayList<String>();
     final static String  testIdColumnName="TestId";
     static HashMap<String, LinkedHashMap<Integer, List<String>>> outerMap;
 	static ArrayList<String> tags= new ArrayList<String>();
@@ -49,25 +49,24 @@ public class ExcelReadWrite {
 	public static void getTestId() throws Exception {
 		
 		tagNames(scenario);
-		 testId= new String[20];
-			tags.(testIdColumnName))
-			{
-				for (int i=0; i<scenario.getSourceTagNames().size();i++)
-				{	
-				testId[i]=tags.indexOf(@);
+		boolean b=false;
+		for (int i=0; i<tags.size();i++) {
+			if(tags.get(i).contains("TestId")) {
 				
-				
-			}
-			
-			}
-			else
-			{
-				throw new Exception("TestId is missing! Please add Test_ID tag in feature file:"); 
-			}
+			  testIdNumber.add(tags.get(i).substring(8));
+			  b=true;
+			 }
 		}
+		 if (!b) {
+				throw new Exception("TestId is missing! Please add Test_ID tag in feature file:");
+			}
+		
+			}
+     
+		
 
 		
-	}
+	
 	
 	public static HashMap<String, LinkedHashMap<Integer, List<String>>> loadExcelFileData(String path)
     {
@@ -169,22 +168,29 @@ public class ExcelReadWrite {
             {
 				XSSFSheet sheet = workBook.getSheetAt(i);
 			hashMap=outerMap.get(sheet.getSheetName());
-			List l=hashMap.get(0);
-		    Object s=l.get(1).getClass().getName();
 						
 			columnOfTestId=hashMap.get(0).indexOf(testIdColumnName);
 			columnofUrl=hashMap.get(0).indexOf(url);
-			int p=hashMap.keySet().size();
-			for(int j=0; j<hashMap.keySet().size();j++)
+			
+			for(int j=1; j<hashMap.keySet().size();j++)
 			{
-				if(j==0)
-				     continue;
-				if(hashMap.get(j).get(columnOfTestId).equals(testId[(j-1)]))
-				{
-					cellValue=(String)hashMap.get(j).get(columnofUrl);
 				
-				
+				if(hashMap.get(j).get(columnOfTestId) instanceof String ) {
+					
+					if(hashMap.get(j).get(columnOfTestId).equals(testIdNumber.get(0)))
+					{
+						cellValue=hashMap.get(j).get(columnofUrl);
+					}
 				}
+				else {
+					if(String.valueOf(hashMap.get(j).get(columnOfTestId)).equals(testIdNumber.get(0)))
+					{
+						cellValue=String.valueOf(hashMap.get(j).get(columnofUrl));
+					}
+				}
+				
+					
+				
 			}
 		}
 		
